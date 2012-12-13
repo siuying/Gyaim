@@ -13,6 +13,10 @@ describe Dictionary do
       dict["013"].should be_include("明")
       dict["01311"].should be_include("明")
       dict["013115"].should be_include("明")
-    end    
+    end
+
+    it "should do pattern match" do
+      dict["013*5"].should be_include("明")
+    end 
   end
 end

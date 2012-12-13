@@ -19,9 +19,16 @@ class Dictionary
   end
 
   def [](pattern)
-    @dict[pattern]
-  end
+    if pattern.match("\\*")
+      head          = pattern.split("*").first
+      match_pattern = Regexp.new(pattern.gsub(/\*/, ".+"))
+      @dict.select { |pattern| pattern.match(match_pattern) }.values.flatten
 
+    else
+      @dict[pattern]
+
+    end
+  end
 
   def save(dictfile)
     saved = {}
