@@ -10,7 +10,10 @@ require 'Crypt'
 require 'Dictionary'
 
 class WordSearch
+  attr_accessor :searchmode
+
   def initialize(dictfile, localDictFile="#{WordSearch.dictDir}/localdict.txt", studyDictFile="#{WordSearch.dictDir}/studydict.txt")
+    @searchmode = 0
     @dictionary = Dictionary.new(dictfile)
     @localdict  = Dictionary.new(localDictFile) 
     @studydict  = Dictionary.new(studyDictFile)

@@ -32,6 +32,7 @@ class GyaimController < IMKInputController
     # 辞書サーチ
     dictpath = NSBundle.mainBundle.pathForResource("dict", ofType:"txt")
     if @@ws.nil? then
+      WordSearch.setup
       @@ws = WordSearch.new(dictpath)
     end
 
@@ -63,7 +64,6 @@ class GyaimController < IMKInputController
     @inputPat = ""
     @candidates = []
     @nthCand = 0
-    @@ws.searchmode = 0
     @selectedstr = nil
   end
 
@@ -156,10 +156,9 @@ class GyaimController < IMKInputController
         handled = true
       end
     elsif c >= 0x21 && c <= 0x7e && (modifierFlags & NSControlKeyMask) == 0 then
-      fix if @nthCand > 0 || @@ws.searchmode > 0
+      fix if @nthCand > 0
       @inputPat += eventString
       searchAndShowCands
-      @@ws.searchmode = 0
       handled = true
     end
 
@@ -179,36 +178,15 @@ class GyaimController < IMKInputController
 
   # 単語検索して候補の配列作成
   def searchAndShowCands
-    #
-    # WordSearch#search で検索して WordSearch#candidates で受け取る
-    #
-    # @@ws.searchmode == 0 前方マッチ
-    # @@ws.searchmode == 1 完全マッチ ひらがな/カタカナも候補に加える
-    #
-    if @@ws.searchmode > 0 then
-      @@ws.search(@inputPat)
-      @candidates = @@ws.candidates
-      katakana = @inputPat.roma2katakana
-      if katakana != "" then
-        @candidates = delete(@candidates,katakana)
-        @candidates.unshift(katakana)
-      end
+    @@ws.search(@inputPat)
+    @candidates = @@ws.candidates
+    @candidates.unshift(@selectedstr) if @selectedstr && @selectedstr != ''
+    @candidates.unshift(@inputPat)
+    if @candidates.length < 8 then
       hiragana = @inputPat.roma2hiragana
-      if hiragana != "" then
-        @candidates = delete(@candidates,hiragana)
-        @candidates.unshift(hiragana)
-      end
-    else
-      @@ws.search(@inputPat)
-      @candidates = @@ws.candidates
-      @candidates.unshift(@selectedstr) if @selectedstr && @selectedstr != ''
-      @candidates.unshift(@inputPat)
-      if @candidates.length < 8 then
-        hiragana = @inputPat.roma2hiragana
-        @candidates.push(hiragana)
-      end
-
+      @candidates.push(hiragana)
     end
+
     @nthCand = 0
     showCands
   end

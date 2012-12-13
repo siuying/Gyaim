@@ -9,11 +9,11 @@
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.pitecan.inputmethod.Gyaim</string>
+	<string>hk.ignition.inputmethod.Gyaim</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Gyaim</string>
+	<string>GyaimBSM</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
@@ -30,21 +30,21 @@
 	<dict>
 		<key>tsInputModeListKey</key>
 		<dict>
-			<key>com.apple.inputmethod.Japanese</key>
+			<key>com.apple.inputmethod.TradChinese</key>
 			<dict>
 				<key>TISInputSourceID</key>
-				<string>com.pitecan.inputmethod.Gyaim.Japanese</string>
+				<string>hk.ignition.inputmethod.Gyaim.TradChinese</string>
 				<key>TISIntendedLanguage</key>
 				<string>ja</string>
 				<key>tsInputModePrimaryInScriptKey</key>
 				<true/>
 				<key>tsInputModeScriptKey</key>
-				<string>smJapanese</string>
+				<string>smTradChinese</string>
 			</dict>
 		</dict>
 		<key>tsVisibleInputModeOrderedArrayKey</key>
 		<array>
-			<string>com.apple.inputmethod.Japanese</string>
+			<string>com.apple.inputmethod.TradChinese</string>
 		</array>
 	</dict>
 	<key>tsInputMethodCharacterRepertoireKey</key>
