@@ -8,6 +8,6 @@ class CandView < NSView
   def drawRect(rect)
     mainBundle = NSBundle.mainBundle
     image = NSImage.alloc.initByReferencingFile(mainBundle.pathForResource("candwin",ofType:"png"))
-    image.compositeToPoint(NSZeroPoint,operation:NSCompositeSourceOver)
+    image.drawAtPoint(self.frame.origin, fromRect:NSZeroRect, operation:NSCompositeSourceOver, fraction:1.0)
   end
 end
